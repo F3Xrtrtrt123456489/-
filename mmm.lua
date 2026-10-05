@@ -158,6 +158,9 @@ task.spawn(function()
 		["TP All Drops to Nearest Grinder"]="将所有掉落物传送到最近的研磨机",
 		["Bring Dropped Items"]="带来掉落道具", ["Enable Interval"]="启用定时", ["Interval"]="间隔",
 		["Orbit Dropped Items"]="环绕掉落道具", ["Height"]="高度", ["Distance"]="距离", ["Speed"]="速度",
+		-- 快捷菜单
+		["Keybinds"]="快捷键", ["Custom Fov"]="自定义视野",
+        ["Hold"]="按住", ["Always"]="常开",
 		-- 通知
 		["Waiting for the game to load..."]="正在等待游戏加载…",
 		["Your executor doesn't support this feature."]="你的执行器不支持此功能。",
@@ -462,4 +465,29 @@ task.spawn(function()
 	end
 	watch(workspace) -- ESP 的 BillboardGui 可能挂在这里
 end)
+local ModeMap = {Toggle="切换", Hold="按住", Always="常开"}
+
+local function translateLine(line)
+	-- 快捷键菜单："[F] Fly (Toggle)"
+	local key, name, mode = line:match("^%[(.-)%] (.-) %((%a+)%)$")
+	if key and name then
+		return "[" .. key .. "] " .. translateOne(name) .. " (" .. (ModeMap[mode] or mode) .. ")"
+	end
+
+	local r = translateOne(line)
+	if r ~= line then return r end
+	-- 去掉首尾空白再试一次
+	local lead, core, tail = line:match("^(%s*)(.-)(%s*)$")
+	if core and core ~= "" and core ~= line then
+		local t = translateOne(core)
+		if t ~= core then return lead .. t .. tail end
+	end
+	-- 处理 "名字 [距离]" / "名字 (xx)" 这类带后缀的 ESP 文字
+	local name2, rest = line:match("^(.-)(%s*[%[%(].*)$")
+	if name2 and name2 ~= "" then
+		local t = translateOne(name2)
+		if t ~= name2 then return t .. rest end
+	end
+	return line
+end
 loadstring(game:HttpGet("https://raw.githubusercontent.com/therealcookiemonsterof1966/AbysallContinued/main/Games/Doors/Main.luau"))()

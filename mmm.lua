@@ -370,6 +370,12 @@ task.spawn(function()
 	local function translateLine(line)
 		local r = translateOne(line)
 		if r ~= line then return r end
+		-- 去掉首尾空白再试一次
+		local lead, core, tail = line:match("^(%s*)(.-)(%s*)$")
+		if core and core ~= "" and core ~= line then
+			local t = translateOne(core)
+			if t ~= core then return lead .. t .. tail end
+		end
 		-- 处理 "名字 [距离]" / "名字 (xx)" 这类带后缀的 ESP 文字
 		local name, rest = line:match("^(.-)(%s*[%[%(].*)$")
 		if name and name ~= "" then
@@ -420,6 +426,31 @@ task.spawn(function()
 			return true
 		end
 		while not wrap() do task.wait(0.05) end
+	end)
+
+	-- 长按提示：在界面库创建提示之前先翻译
+	task.spawn(function()
+		local function wrapTip()
+			local A = getgenv and getgenv().Abysall
+			local lib = A and A.Interface and A.Interface.Library
+			if not lib or type(lib.AddTooltip) ~= "function" then return false end
+			if rawget(lib, "__zhtip") then return true end
+			rawset(lib, "__zhtip", true)
+			local old = lib.AddTooltip
+			lib.AddTooltip = function(self, info, disabled, ...)
+				if type(info) == "string" then
+					local t = translate(info)
+					if t == info and info:match("%a") then
+						warn("[未翻译提示] " .. info)
+					end
+					info = t
+				end
+				if type(disabled) == "string" then disabled = translate(disabled) end
+				return old(self, info, disabled, ...)
+			end
+			return true
+		end
+		repeat task.wait() until wrapTip()
 	end)
 
 	watch(root)

@@ -1,3 +1,4 @@
+-- ===== 汉化层：放在原脚本最顶部 =====
 task.spawn(function()
 	local CoreGui = game:GetService("CoreGui")
 	local root = (gethui and gethui()) or CoreGui
@@ -30,57 +31,7 @@ task.spawn(function()
 		["Skip Seek (Mines)"]="跳过 Seek（矿井）", ["Auto Breaker Room"]="自动断路器房间",
 		["Auto Hotel"]="自动酒店", ["Ignore Entities"]="忽略实体", ["Auto Interact"]="自动交互",
 		["Ignore List"]="忽略列表", ["Auto Closet"]="自动躲柜", ["Spectate Entity"]="观战实体",
-
-        -- 目标 / 物件
-        ["Garage Door"]="车库门", ["Mirror"]="镜子", ["Shopping Cart"]="购物车", ["Fire Alarm"]="火警警报器",
-        ["Scrapper"]="粉碎机", ["BoxDeposit"]="箱子存放处", ["Package Deposit"]="包裹存放处",
-        ["Deposit"]="存放处", ["Correct Box"]="正确箱子", ["Cellar"]="地窖",
-        ["Fih Tank"]="Fih 水箱", ["Fish Tank"]="鱼缸",
-        ["Door Key"]="门钥匙", ["Electrical Key"]="电力钥匙", ["Generator"]="发电机",
-["Generator Fuse"]="发电机保险丝", ["Hint Book"]="提示书", ["Hint Paper"]="提示纸",
-["Fuse Breaker"]="保险丝断路器", ["Present"]="礼物", ["Gate Lever"]="闸门拉杆",
-["Gate Button"]="闸门按钮", ["Time Lever"]="时间拉杆", ["Anchor"]="锚点",
-["Water Pump"]="水泵", ["Vine Lever"]="藤蔓拉杆", ["Ladder"]="梯子", ["Green Herb"]="绿草药",
-["Stardust Pile"]="星尘堆", ["Gold Pile"]="金币堆",
--- 藏身处
-["Closet"]="柜子", ["Locker"]="储物柜", ["Hiding_Spot"]="藏身处", ["Hiding Spot"]="藏身处",
-["Bed"]="床", ["Double Bed"]="双人床", ["Vent"]="通风口", ["Dumpster"]="垃圾箱",
--- 箱子
-["Chest"]="箱子", ["Locked Chest"]="上锁的箱子", ["Toolbox"]="工具箱",
-["Locked Toolbox"]="上锁的工具箱", ["Vine Chest"]="藤蔓箱", ["Toolshed"]="工具棚",
-["Locked Item Locker"]="上锁的道具柜", ["Mouse"]="老鼠洞",
--- 实体
-["Noise_TV"]="Noise 电视", ["Portrait"]="肖像", ["Balls"]="Balls", ["Noise"]="Noise",
-["Creak"]="Creak", ["DronesStampede"]="Drones 冲撞", ["Teller"]="Teller",
-["Scribbles"]="Scribbles", ["Bash"]="Bash", ["Rush"]="Rush", ["Ambush"]="Ambush",
-["Eyes"]="Eyes", ["Blitz"]="Blitz", ["Lookman"]="Lookman", ["A-60"]="A-60", ["A-120"]="A-120",
-["Gloombat Swarm"]="Gloombat 群", ["Gloombat Eggs"]="Gloombat 蛋",
-["AR0xMBUSH"]="AR0xMBUSH", ["RNIUSHCG=="]="RNIUSHCG==", ["Monument"]="Monument",
-["Jeff the Killer"]="杀手 Jeff", ["Custom Entity"]="自定义实体", ["Frozen Ambush"]="冰冻 Ambush",
-["Sally"]="Sally", ["Giggle"]="Giggle", ["Snare"]="捕兽夹", ["Grumble"]="Grumble",
-["Drakobloxxer"]="Drakobloxxer", ["Mandrake Hole"]="曼德拉草洞", ["Groundskeeper"]="园丁 Groundskeeper",
-["Bramble"]="荆棘 Bramble", ["Figure"]="Figure", ["Dupe"]="Dupe",
--- 道具
-["Hat"]="帽子", ["Screw"]="螺丝", ["Lamp"]="台灯", ["18+ Bottles"]="18+ 酒瓶",
-["Gween Soda Pack"]="Gween 汽水包", ["Broken Monitor"]="损坏的显示器", ["Jerry Can"]="油桶",
-["Sally Toy"]="Sally 玩具", ["Lunch Box"]="饭盒", ["Honey Pot"]="蜜罐", ["Fih Food"]="Fih 食物",
-["CD Disc"]="CD 光盘", ["Pizza"]="披萨", ["Paper Plane"]="纸飞机", ["Lighter"]="打火机",
-["Flashlight"]="手电筒", ["Lockpicks"]="撬锁器", ["Vitamins"]="维生素", ["Bandage"]="绷带",
-["Starlight Vial"]="星光小瓶", ["Starlight Bottle"]="星光瓶", ["Starlight Barrel"]="星光桶",
-["Gummy Flashlight"]="软糖手电筒", ["Straplight"]="绑带灯", ["Spotlight"]="聚光灯",
-["Battery"]="电池", ["Candle"]="蜡烛", ["Crucifix"]="十字架", ["Glowstick"]="荧光棒",
-["Skeleton Key"]="骷髅钥匙", ["Candy"]="糖果", ["Mini Shield Potion"]="小型护盾药水",
-["Big Shield Potion"]="大型护盾药水", ["Bandage Pack"]="绷带包", ["Battery Pack"]="电池包",
-["Moonlight Candle"]="月光蜡烛", ["Laser Pointer"]="激光笔", ["Holy Hand Grenade"]="圣手雷",
-["Shears"]="剪刀", ["Smoothie"]="冰沙", ["Cheese"]="奶酪", ["Bread"]="面包",
-["Alarm Clock"]="闹钟", ["Moonlight Smoothie"]="月光冰沙", ["Gween Soda"]="Gween 汽水",
-["Glitch Fragment"]="故障碎片", ["Tablet"]="平板", ["Bomb"]="炸弹", ["Knockbomb"]="击退炸弹",
-["Nanner"]="Nanner", ["Big Bomb"]="大炸弹", ["Hiding Box"]="藏身盒", ["Golden Gun"]="黄金枪",
-["Stop Sign"]="停止标志", ["Tip Jar"]="小费罐", ["Lantern"]="提灯", ["Iron Key"]="铁钥匙",
-["Lotus Petal"]="莲花瓣", ["Compass"]="指南针", ["Multitool"]="多功能工具",
-["Rift Jar"]="裂隙罐", ["Aloe Vera"]="芦荟", ["Donut"]="甜甜圈", ["Lotus"]="莲花",
-["Boxing Gloves"]="拳击手套",
-			-- 杂项 / 调试
+		-- 杂项 / 调试
 		["Play Again"]="再来一局", ["Return to Lobby"]="返回大厅", ["Revive"]="复活",
 		["Reset Character"]="重置角色", ["Ladder Softlock Fix"]="修复梯子卡死",
 		["Get Current Floor"]="获取当前楼层", ["Get Current Room"]="获取当前房间",
@@ -131,6 +82,50 @@ task.spawn(function()
 		["Render Limit"]="渲染距离", ["Text Size"]="文字大小", ["Text Font"]="文字字体",
 		["Tracer Origin"]="射线起点", ["Tracer Thickness"]="射线粗细", ["Enable Tracers"]="启用射线",
 		["Arrow Radius"]="箭头半径", ["Enable Arrows"]="启用箭头",
+		-- ESP 常见名称
+		["Key"]="钥匙", ["Lever"]="拉杆", ["Fuse"]="保险丝", ["Book"]="书", ["Generator"]="发电机",
+		["Breaker Box"]="断路器", ["Padlock"]="挂锁", ["Elevator Breaker"]="电梯断路器",
+		["Toolshed"]="工具棚", ["Dumpster"]="垃圾箱", ["Wardrobe"]="衣柜", ["Vent"]="通风口",
+		["Lighter"]="打火机", ["Flashlight"]="手电筒", ["Vitamins"]="维生素", ["Bandage"]="绷带",
+		["Lockpicks"]="撬锁器", ["Skeleton Key"]="骷髅钥匙", ["Crucifix"]="十字架",
+		["Guiding Light"]="指引之光", ["Smoothie"]="冰沙", ["Battery"]="电池", ["Candy"]="糖果",
+		["Gold"]="金币", ["Gold Pile"]="金币堆", ["Ladder"]="梯子", ["Player"]="玩家",
+		["Locked"]="已上锁", ["Unlocked"]="已解锁",
+		-- ESP 全部名称（来自源码）
+		["Garage Door"]="车库门", ["Mirror"]="镜子", ["Shopping Cart"]="购物车", ["Fire Alarm"]="火警警报器",
+		["Scrapper"]="粉碎机", ["BoxDeposit"]="箱子存放处", ["Package Deposit"]="包裹存放处",
+		["Deposit"]="存放处", ["Correct Box"]="正确箱子", ["Cellar"]="地窖",
+		["Fih Tank"]="Fih 水箱", ["Fish Tank"]="鱼缸",
+		["Door Key"]="门钥匙", ["Electrical Key"]="电力钥匙",
+		["Generator Fuse"]="发电机保险丝", ["Hint Book"]="提示书", ["Hint Paper"]="提示纸",
+		["Fuse Breaker"]="保险丝断路器", ["Present"]="礼物", ["Gate Lever"]="闸门拉杆",
+		["Gate Button"]="闸门按钮", ["Time Lever"]="时间拉杆", ["Anchor"]="锚点",
+		["Water Pump"]="水泵", ["Vine Lever"]="藤蔓拉杆", ["Green Herb"]="绿草药",
+		["Stardust Pile"]="星尘堆",
+		["Hiding_Spot"]="藏身处", ["Hiding Spot"]="藏身处", ["Double Bed"]="双人床",
+		["Toolbox"]="工具箱", ["Locked Toolbox"]="上锁的工具箱", ["Vine Chest"]="藤蔓箱",
+		["Locked Item Locker"]="上锁的道具柜", ["Mouse"]="老鼠洞",
+		["Noise_TV"]="Noise 电视", ["Portrait"]="肖像", ["DronesStampede"]="Drones 冲撞",
+		["Gloombat Swarm"]="Gloombat 群", ["Gloombat Eggs"]="Gloombat 蛋",
+		["Jeff the Killer"]="杀手 Jeff", ["Custom Entity"]="自定义实体", ["Frozen Ambush"]="冰冻 Ambush",
+		["Snare"]="捕兽夹", ["Mandrake Hole"]="曼德拉草洞", ["Groundskeeper"]="园丁 Groundskeeper",
+		["Bramble"]="荆棘 Bramble",
+		["Hat"]="帽子", ["Screw"]="螺丝", ["Lamp"]="台灯", ["18+ Bottles"]="18+ 酒瓶",
+		["Gween Soda Pack"]="Gween 汽水包", ["Broken Monitor"]="损坏的显示器", ["Jerry Can"]="油桶",
+		["Sally Toy"]="Sally 玩具", ["Lunch Box"]="饭盒", ["Honey Pot"]="蜜罐", ["Fih Food"]="Fih 食物",
+		["CD Disc"]="CD 光盘", ["Pizza"]="披萨", ["Paper Plane"]="纸飞机",
+		["Starlight Vial"]="星光小瓶", ["Starlight Bottle"]="星光瓶", ["Starlight Barrel"]="星光桶",
+		["Gummy Flashlight"]="软糖手电筒", ["Straplight"]="绑带灯", ["Spotlight"]="聚光灯",
+		["Candle"]="蜡烛", ["Glowstick"]="荧光棒", ["Mini Shield Potion"]="小型护盾药水",
+		["Big Shield Potion"]="大型护盾药水", ["Bandage Pack"]="绷带包", ["Battery Pack"]="电池包",
+		["Moonlight Candle"]="月光蜡烛", ["Laser Pointer"]="激光笔", ["Holy Hand Grenade"]="圣手雷",
+		["Shears"]="剪刀", ["Cheese"]="奶酪", ["Bread"]="面包", ["Alarm Clock"]="闹钟",
+		["Moonlight Smoothie"]="月光冰沙", ["Gween Soda"]="Gween 汽水", ["Glitch Fragment"]="故障碎片",
+		["Tablet"]="平板", ["Bomb"]="炸弹", ["Knockbomb"]="击退炸弹", ["Big Bomb"]="大炸弹",
+		["Hiding Box"]="藏身盒", ["Golden Gun"]="黄金枪", ["Stop Sign"]="停止标志", ["Tip Jar"]="小费罐",
+		["Lantern"]="提灯", ["Iron Key"]="铁钥匙", ["Lotus Petal"]="莲花瓣", ["Compass"]="指南针",
+		["Multitool"]="多功能工具", ["Rift Jar"]="裂隙罐", ["Aloe Vera"]="芦荟", ["Donut"]="甜甜圈",
+		["Lotus"]="莲花", ["Boxing Gloves"]="拳击手套",
 		-- 楼层
 		["Auto Steer Minecart"]="自动驾驶矿车", ["Turn Distance"]="转向距离", ["Crouch Distance"]="蹲下距离",
 		["Auto Rooms"]="自动 Rooms", ["Pathfind Timeout"]="寻路超时", ["Ignore A-60"]="忽略 A-60",
@@ -206,14 +201,30 @@ task.spawn(function()
 	}
 	for k, v in pairs(Single) do Dict[k] = v end
 
-	local function translate(s)
-		if type(s) ~= "string" or s == "" then return s end
+	local function translateOne(s)
 		local hit = Dict[s]
 		if hit then return hit end
 		for _, p in ipairs(Patterns) do
 			if s:match(p[1]) then return (s:gsub(p[1], p[2])) end
 		end
 		return s
+	end
+
+	local function translateLine(line)
+		local r = translateOne(line)
+		if r ~= line then return r end
+		-- 处理 "名字 [距离]" / "名字 (xx)" 这类带后缀的 ESP 文字
+		local name, rest = line:match("^(.-)(%s*[%[%(].*)$")
+		if name and name ~= "" then
+			local t = translateOne(name)
+			if t ~= name then return t .. rest end
+		end
+		return line
+	end
+
+	local function translate(s)
+		if type(s) ~= "string" or s == "" then return s end
+		return (s:gsub("[^\n]+", translateLine)) -- 多行文字逐行翻译
 	end
 
 	local hooked = setmetatable({}, {__mode = "k"})
@@ -234,7 +245,33 @@ task.spawn(function()
 		container.DescendantAdded:Connect(function(d) pcall(hook, d) end)
 	end
 
+	-- ESP 文字翻译：等 ESP 库加载后，包装它的 AddESP，在画出来之前先翻译
+	task.spawn(function()
+		local function wrap()
+			local A = getgenv and getgenv().Abysall
+			local lib = A and A.ESPLibrary
+			if not lib or type(lib.AddESP) ~= "function" then return false end
+			if rawget(lib, "__zh") then return true end
+			rawset(lib, "__zh", true)
+			local old = lib.AddESP
+			lib.AddESP = function(self, opts, ...)
+				if type(opts) == "table" and type(opts.Text) == "string" then
+					opts.Text = translate(opts.Text)
+				end
+				return old(self, opts, ...)
+			end
+			return true
+		end
+		while not wrap() do task.wait(0.05) end
+	end)
+
 	watch(root)
 	if root ~= CoreGui then watch(CoreGui) end
+	local lp = game:GetService("Players").LocalPlayer
+	if lp then
+		local pg = lp:FindFirstChildOfClass("PlayerGui") or lp:WaitForChild("PlayerGui", 5)
+		if pg then watch(pg) end
+	end
+	watch(workspace) -- ESP 的 BillboardGui 可能挂在这里
 end)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/therealcookiemonsterof1966/AbysallContinued/main/Games/Doors/Main.luau"))()

@@ -1,4 +1,3 @@
--- ===== 汉化层：放在原脚本最顶部 =====
 task.spawn(function()
 	local CoreGui = game:GetService("CoreGui")
 	local root = (gethui and gethui()) or CoreGui
@@ -57,7 +56,7 @@ task.spawn(function()
 		["Remove Footstep Sounds"]="移除脚步声", ["Remove Jammin Music"]="移除 Jammin 音乐",
 		["Remove Interacting Sounds"]="移除交互音效",
 		-- 视觉
-		["Ambient"]="环境光", ["Field of View"]="视野", ["Custom FOV"]="自定义视野",
+		["Ambient"]="环境光", ["Field of View"]="视野", ["Custom FOV"]="自定义视野", ["Custom Fov"]="自定义视野",
 		["Remove Camera Shake"]="移除镜头抖动", ["Remove Camera Bobbing"]="移除镜头晃动",
 		["Remove Cutscenes"]="移除过场动画", ["Remove Fog"]="移除雾", ["Third Person"]="第三人称",
 		["X Offset"]="X 偏移", ["Y Offset"]="Y 偏移", ["Z Offset"]="Z 偏移", ["Wall Check"]="墙壁检测",
@@ -158,16 +157,33 @@ task.spawn(function()
 		["TP All Drops to Nearest Grinder"]="将所有掉落物传送到最近的研磨机",
 		["Bring Dropped Items"]="带来掉落道具", ["Enable Interval"]="启用定时", ["Interval"]="间隔",
 		["Orbit Dropped Items"]="环绕掉落道具", ["Height"]="高度", ["Distance"]="距离", ["Speed"]="速度",
-		-- 快捷菜单
-		["Keybinds"]="快捷键", ["Custom Fov"]="自定义视野",
-        ["Hold"]="按住", ["Always"]="常开",
 		-- 通知
 		["Waiting for the game to load..."]="正在等待游戏加载…",
 		["Your executor doesn't support this feature."]="你的执行器不支持此功能。",
 		["Test"]="测试",
 
+		-- ===== 快捷键菜单 / 按钮 =====
+		["Keybinds"]="快捷键", ["Toggle"]="切换", ["Lock"]="锁定", ["Hold"]="按住", ["Always"]="常开",
+
+		-- ===== 设置页（按 Obsidian 标准设置页推测）=====
+		["Menu"]="菜单", ["Menu bind"]="菜单快捷键", ["Menu Keybind"]="菜单快捷键",
+		["Unload"]="卸载脚本", ["Show Keybinds"]="显示快捷键菜单", ["Keybind Menu"]="快捷键菜单",
+		["Show Custom Cursor"]="显示自定义光标", ["Custom Cursor"]="自定义光标",
+		["Notification Side"]="通知位置", ["Left"]="左", ["Right"]="右",
+		["DPI Scale"]="界面缩放", ["Lock UI"]="锁定界面", ["Menu Fade Time"]="菜单渐变时间",
+		["Themes"]="主题", ["Theme"]="主题", ["Background color"]="背景色", ["Main color"]="主色",
+		["Accent color"]="强调色", ["Outline color"]="轮廓色", ["Font color"]="字体颜色",
+		["Font Color"]="字体颜色", ["Font face"]="字体", ["Font Face"]="字体",
+		["Theme list"]="主题列表", ["Custom theme name"]="自定义主题名称",
+		["Create theme"]="创建主题", ["Load theme"]="加载主题", ["Overwrite theme"]="覆盖主题",
+		["Save theme"]="保存主题", ["Set as default"]="设为默认", ["Reset default"]="重置默认",
+		["Configuration"]="配置", ["Configs"]="配置", ["Config name"]="配置名称",
+		["Config list"]="配置列表", ["Create config"]="创建配置", ["Load config"]="加载配置",
+		["Overwrite config"]="覆盖配置", ["Refresh list"]="刷新列表",
+		["Set as autoload"]="设为自动加载", ["Reset autoload"]="重置自动加载",
+		["Info"]="信息",
+
 		-- ===== 长按提示（Tooltip）=====
-		["Toggle"]="切换", ["Lock"]="锁定",
 		["Increases your walkspeed by the specified amount."]="按设定值提高你的移动速度。",
 		["Allows you to freely fly around the map."]="让你在地图中自由飞行。",
 		["Allows your character to pass through solid objects."]="让角色穿过实体物体。",
@@ -335,6 +351,8 @@ task.spawn(function()
 		{"^Items: (.+)$", "道具: %1"},
 		{"^Time: (.+)$", "时间: %1"},
 		{"^Aggression (.+)$", "攻击性 %1"},
+		{"^Current autoload config: (.+)$", "当前自动加载配置：%1"},
+		{"^Current default theme: (.+)$", "当前默认主题：%1"},
 		{"^Door Key$", "门钥匙"}, {"^Hint Book$", "提示书"}, {"^Hint Paper$", "提示纸"},
 		{"^Door (%d+)$", "门 %1"}, {"^Closet$", "柜子"}, {"^Locker$", "储物柜"},
 		{"^Chest$", "箱子"}, {"^Locked Chest$", "上锁的箱子"}, {"^Bed$", "床"},
@@ -370,7 +388,15 @@ task.spawn(function()
 		return s
 	end
 
+	local ModeMap = {Toggle="切换", Hold="按住", Always="常开"}
+
 	local function translateLine(line)
+		-- 快捷键菜单："[F] Fly (Toggle)"
+		local key, name, mode = line:match("^%[(.-)%] (.-) %((%a+)%)$")
+		if key and name then
+			return "[" .. key .. "] " .. translateOne(name) .. " (" .. (ModeMap[mode] or mode) .. ")"
+		end
+
 		local r = translateOne(line)
 		if r ~= line then return r end
 		-- 去掉首尾空白再试一次
@@ -380,10 +406,10 @@ task.spawn(function()
 			if t ~= core then return lead .. t .. tail end
 		end
 		-- 处理 "名字 [距离]" / "名字 (xx)" 这类带后缀的 ESP 文字
-		local name, rest = line:match("^(.-)(%s*[%[%(].*)$")
-		if name and name ~= "" then
-			local t = translateOne(name)
-			if t ~= name then return t .. rest end
+		local name2, rest = line:match("^(.-)(%s*[%[%(].*)$")
+		if name2 and name2 ~= "" then
+			local t = translateOne(name2)
+			if t ~= name2 then return t .. rest end
 		end
 		return line
 	end
@@ -394,13 +420,22 @@ task.spawn(function()
 	end
 
 	local hooked = setmetatable({}, {__mode = "k"})
+	local keyLabels = setmetatable({}, {__mode = "k"})
+	local warned = {}
 	local function hook(obj)
 		if hooked[obj] then return end
 		if not (obj:IsA("TextLabel") or obj:IsA("TextButton")) then return end
 		hooked[obj] = true
 		local function apply()
-			local new = translate(obj.Text)
-			if new ~= obj.Text then obj.Text = new end
+			local text = obj.Text
+			if text:match("^%[.-%] .- %(%a+%)$") then keyLabels[obj] = true end
+			local new = translate(text)
+			if new ~= text then
+				obj.Text = new
+			elseif text:match("%a") and obj:IsDescendantOf(root) and not warned[text] then
+				warned[text] = true
+				warn("[未翻译] " .. text)
+			end
 		end
 		apply()
 		obj:GetPropertyChangedSignal("Text"):Connect(apply)
@@ -410,6 +445,23 @@ task.spawn(function()
 		for _, d in ipairs(container:GetDescendants()) do pcall(hook, d) end
 		container.DescendantAdded:Connect(function(d) pcall(hook, d) end)
 	end
+
+	-- 每帧渲染的最后一步再翻译快捷键菜单，防止界面库把英文刷回来
+	pcall(function()
+		local RS = game:GetService("RunService")
+		pcall(function() RS:UnbindFromRenderStep("ZH_Keybinds") end)
+		RS:BindToRenderStep("ZH_Keybinds", Enum.RenderPriority.Last.Value, function()
+			for obj in pairs(keyLabels) do
+				if obj.Parent then
+					local text = obj.Text
+					if text:match("^%[.-%] .- %(%a+%)$") then
+						local new = translate(text)
+						if new ~= text then obj.Text = new end
+					end
+				end
+			end
+		end)
+	end)
 
 	-- ESP 文字翻译：等 ESP 库加载后，包装它的 AddESP，在画出来之前先翻译
 	task.spawn(function()
@@ -465,29 +517,4 @@ task.spawn(function()
 	end
 	watch(workspace) -- ESP 的 BillboardGui 可能挂在这里
 end)
-local ModeMap = {Toggle="切换", Hold="按住", Always="常开"}
-
-local function translateLine(line)
-	-- 快捷键菜单："[F] Fly (Toggle)"
-	local key, name, mode = line:match("^%[(.-)%] (.-) %((%a+)%)$")
-	if key and name then
-		return "[" .. key .. "] " .. translateOne(name) .. " (" .. (ModeMap[mode] or mode) .. ")"
-	end
-
-	local r = translateOne(line)
-	if r ~= line then return r end
-	-- 去掉首尾空白再试一次
-	local lead, core, tail = line:match("^(%s*)(.-)(%s*)$")
-	if core and core ~= "" and core ~= line then
-		local t = translateOne(core)
-		if t ~= core then return lead .. t .. tail end
-	end
-	-- 处理 "名字 [距离]" / "名字 (xx)" 这类带后缀的 ESP 文字
-	local name2, rest = line:match("^(.-)(%s*[%[%(].*)$")
-	if name2 and name2 ~= "" then
-		local t = translateOne(name2)
-		if t ~= name2 then return t .. rest end
-	end
-	return line
-end
 loadstring(game:HttpGet("https://raw.githubusercontent.com/therealcookiemonsterof1966/AbysallContinued/main/Games/Doors/Main.luau"))()
